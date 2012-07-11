@@ -1,0 +1,10 @@
+.bundle/
+.rvmrc
+pkg
+log
+web
+wiki
+tmp
+work/sandbox
+DEMO.md
+Gemfile.lock

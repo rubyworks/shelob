@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'smeagol-static'
+Smeagol::CLI.static_preview(ARGV)
+

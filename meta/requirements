@@ -1,0 +1,11 @@
+---
+- smeagol
+- rack 1.2~
+- gollum 1.3+
+- citron    (development test)
+- ae        (develpoment test)
+- rack-test (development test)
+- rdiscount (development doc)
+#- mocha    (development test)
+#- capybara (development test)
+

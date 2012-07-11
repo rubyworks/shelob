@@ -1,0 +1,13 @@
+#!mast .ruby .yardopts bin demo lib test *.md *.rdoc *.txt
+.ruby
+bin/smeagol-static
+bin/smeagol-static-preview
+lib/smeagol-static/cli.rb
+lib/smeagol-static/console.rb
+lib/smeagol-static/generator.rb
+lib/smeagol-static/server.rb
+lib/smeagol-static/settings.rb
+lib/smeagol-static.rb
+HISTORY.md
+README.md
+LICENSE.txt
