@@ -21,6 +21,13 @@ module Smeagol
       @static || STATIC_DIR
     end
 
+    def static=(path)
+      if path
+        @exclude << path.chomp('/') + '/'
+      end
+      @static = path
+    end
+
     # Smeagol uses `rsync` to copy build files from temporary location to
     # the final location given by `static`. By default this command is:
     #
