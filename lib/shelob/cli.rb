@@ -1,19 +1,34 @@
-module Smeagol
+module Shelob
 
+  # Shelob::CLI module is a function module that provides
+  # all command line interfaces.
+  #
   module CLI
+
+    extend self
+
+    #
+    # Initialize Gollum wiki for customized use with Deagol.
+    #
+    def init(argv)
+      parser.banner = "usage: shelob-init [OPTIONS] [WIKI-URI]"
+
+      # TODO: support more settings options for creating setup
+
+      Console.init(*parse(argv))
+    end
 
     # Convert to static site.
     #
     # Update wiki repo and update/clone static site repo, if designated
     # by settings.
     #
-    #
     # Returns nothing.
-    def static(argv)
+    def spin(argv)
       options[:update] = true
       options[:build]  = true
 
-      parser.banner = "usage: smeagol static [OPTIONS]"
+      parser.banner = "usage: shelob-spin [OPTIONS]"
 
       parser.on('-U' '--no-update', 'skip repo update') do
         options[:update] = false
@@ -23,20 +38,21 @@ module Smeagol
         options[:build] = false
       end
 
-      parser.on('-d', '--dir DIR', 'alternate static site directory') do |dir|
+      parser.on('-d', '--dir DIR', 'alternate site directory') do |dir|
         dir = nil if %w{false nil ~}.include?(dir)  # TODO: better approach? 
         options[:dir] = dir
       end
 
-      Console.static(*parse(argv))
+      Console.spin(*parse(argv))
     end
 
-    # Preview static build.
+    # Preview website.
     #
     #   TODO: Build if not already built.
     #
-    def static_preview(argv)
-      parser.banner = "Usage: smeagol-static-preview [OPTIONS]"
+    # Returns nothing.
+    def preview(argv)
+      parser.banner = "Usage: shelob-preview [OPTIONS]"
 
       #parser.on('-b', '--build', 'perform build before preview') do
       #  build = true
@@ -109,41 +125,66 @@ module Smeagol
 
       $stderr.puts "Starting static preview..."
 
-      Console.static_preview(*parse(argv))
+      Console.preview(*parse(argv))
     end
 
-    ## Preview site. If in static mode this will preview static build,
-    ## otherwise it will serve the Gollum pages directory.
-    #def preview(argv)
-    #  if static?(argv)
-    #    preview_static(argv)
-    #  elsif dynamic?(argv)
-    #    preview_dynamic(argv)
-    #  else
-    #    settings = Settings.load(ENV['wiki-dir'])  # pull from end of argv ?
-    #    if settings.static
-    #      preview_static(argv)         
-    #    else
-    #      preview_dynamic(argv)
-    #    end
-    #  end
-    #end
+    #
+    # TODO: Implement deploy
+    #
+    def deploy(argv)
 
-    ## Internal: Force static mode?
-    #def static?(argv)
-    #  return true if argv.delete('--static')
-    #  return true if argv.delete('--no-live')
-    #  return true if ENV['mode'] && ENV['mode'].downcase == 'static'
-    #  return false
-    #end
+      Console.deploy(*parse(argv))
+    end
 
-    ## Internal: Force dynamic mode?
-    #def dynamic?(argv)
-    #  return true if argv.delete('--live')
-    #  return true if argv.delete('--no-static')
-    #  return true if ENV['mode'] && ENV['mode'].downcase == 'live'
-    #  return false
-    #end
+  private
+
+    #
+    # Parsed command line options.
+    #
+    # @return [Hash]
+    #
+    def options
+      @options ||= {}
+    end
+
+    #
+    # Read command line options into `options` hash.
+    #
+    # @return [Array] Arguments and options.
+    #
+    def parse(argv)
+      begin
+        parser.parse!(argv)
+      rescue ::OptionParser::InvalidOption
+        puts "smeagol: #{$!.message}"
+        puts "smeagol: try 'smeagol --help' for more information"
+        exit 1
+      end
+      return *(argv + [options])
+    end
+
+    #
+    # Create and cache option parser.
+    #
+    # @return [OptionParser]
+    #
+    def parser
+      @parser ||= (
+        parser = ::OptionParser.new
+        parser.on_tail('--debug', 'Turn on $DEBUG mode.') do
+          $DEBUG = true
+        end
+        parser.on_tail('-v', '--version', 'Display current version.') do
+          puts "Deagol #{Deagol::VERSION}"
+          exit 0
+        end
+        parser.on_tail('-h', '-?', '--help', 'Display this help screen.') do
+          puts parser
+          exit 0
+        end
+        parser
+      )
+    end
 
   end
 

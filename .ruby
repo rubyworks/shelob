@@ -7,17 +7,17 @@ authors:
 - name: Thomas Sawyer
   email: transfire@gmail.com
 copyrights:
+- holder: Ben Johnson
+  year: '2010'
 - holder: Rubyworks
   year: '2011'
   license: BSD-2-Clause
-- holder: Ben Johnson
-  year: '2010'
 requirements:
 - name: smeagol
-- name: rack
-  version: 1.2~
-- name: gollum
-  version: 1.3+
+- name: sinatra
+  version: 1.0~
+- name: daemons
+  version: 1.1~
 - name: citron
   groups:
   - development
@@ -42,17 +42,17 @@ dependencies: []
 alternatives: []
 conflicts: []
 repositories:
-- uri: git://github.com/rubyworks/smeagol-static.git
+- uri: git://github.com/rubyworks/shelob.git
   scm: git
   name: upstream
 resources:
-- uri: http://rubyworks.github.com/smeagol-static
+- uri: http://rubyworks.github.com/shelob
   label: Website
   type: home
-- uri: http://github.com/rubyworks/smeagol-static
+- uri: http://github.com/rubyworks/shelob
   label: Source Code
   type: code
-- uri: http://rubydoc.info/gems/smeagol-static/frames
+- uri: http://rubydoc.info/gems/shelob/frames
   label: Documentation
   type: docs
 - uri: http://groups.google.com/groups/rubyworks-mailinglist
@@ -63,13 +63,11 @@ extra: {}
 load_path:
 - lib
 revision: 0
-name: smeagol-static
-title: Semagol Static
 created: '2010-08-16'
-summary: Static site generator extension for Smeagol
-description: ! 'Smeagol Static is static site generator built on
-
-  top of Smeagol, the read-only Gollum server.'
+summary: Static site generator for Smeagol/Gollum.
+title: Shelob
+version: 0.6.0
+name: shelob
+description: Shelob is a customizable static website spinner for Gollum wiki.
 organization: rubyworks
-version: 0.1.0
-date: '2012-07-11'
+date: '2012-07-18'

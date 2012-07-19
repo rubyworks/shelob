@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'shelob'
+Shelob::CLI.spin(ARGV)
+

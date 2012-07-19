@@ -1,13 +1,17 @@
 #!mast .ruby .yardopts bin demo lib test *.md *.rdoc *.txt
 .ruby
-bin/smeagol-static
-bin/smeagol-static-preview
-lib/smeagol-static/cli.rb
-lib/smeagol-static/console.rb
-lib/smeagol-static/generator.rb
-lib/smeagol-static/server.rb
-lib/smeagol-static/settings.rb
-lib/smeagol-static.rb
+bin/shelob
+bin/shelob-deploy
+bin/shelob-init
+bin/shelob-preview
+bin/shelob-spin
+lib/shelob/cli.rb
+lib/shelob/console.rb
+lib/shelob/generator.rb
+lib/shelob/server.rb
+lib/shelob/settings.rb
+lib/shelob/version.rb
+lib/shelob.rb
 HISTORY.md
 README.md
 LICENSE.txt

@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+cmd = ['shelob']
+ARGV.each do |arg|
+  break if arg.start_with?('-')
+  cmd << ARGV.shift
+end
+exec(cmd.join('-'), *ARGV)
+
