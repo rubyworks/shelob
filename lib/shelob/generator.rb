@@ -44,7 +44,7 @@ module Shelob
     def save
       #fileutils.mkdir(@dir) unless File.exist?(@dir)
 
-      save_smeagol
+      save_assets
       save_rss if settings.rss
       save_toc
 
@@ -142,8 +142,8 @@ module Shelob
     # Copy smeagol's default public files to static site.
     # These files are put in a separate `smeagol` directory
     # to avoid name clashes with wiki files.
-    def save_smeagol
-      src = LIBDIR + '/public/assets'
+    def save_assets
+      src = Smeagol::LIBDIR + '/public/assets'
       dst = File.join(@dir) #, 'assets')
       fileutils.mkdir_p(dst) unless File.directory?(dst)
       fileutils.cp_r(src, dst) 

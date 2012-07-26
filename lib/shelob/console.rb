@@ -20,7 +20,7 @@ module Shelob
     # Spin static site files and synch them to the site path.
     #
     def spin(options={})
-      static_path options[:dir]
+      site_path options[:dir]
 
       if options[:update]
         update options
@@ -28,12 +28,12 @@ module Shelob
 
       generator = Generator.new(wiki)
 
-      remove_static_build
+      remove_old_build
 
-      generator.build(static_build_path)
+      generator.build(build_path)
 
-      if settings.sync_script
-        cmd = settings.sync_script % [build_path, static_path]
+      if settings.site_sync
+        cmd = settings.site_sync % [build_path, site_path]
         $stderr.puts cmd
         system cmd
       end
@@ -41,29 +41,30 @@ module Shelob
 
     # Remove static build directory.
     #
-    def remove_static_build
-      if File.exist?(static_build_path)
-        FileUtils.rm_r(static_build_path)
+    def remove_old_build
+      if File.exist?(build_path)
+        FileUtils.rm_r(build_path)
       end
     end
 
     # Full path to build directory.
     #
     # Returns String to build path.
-    def static_build_path
-      if settings.sync_script
+    def build_path
+      if settings.site_sync
         tmpdir
       else
-        static_path
+        site_path
       end
     end
 
-    # Full path to static site directory.
+    # Full path to site directory.
     #
     # Returns String of static path.
-    def static_path(dir=nil)
-      @static_path = dir if dir
-      (@static_path || settings.static_path).chomp('/')
+    def site_path(dir=nil)
+      @site_path = dir if dir
+      dir = @site_path || settings.site_path
+      dir.chomp('/')
     end
 
     # TODO: Maybe add a random number to be safe.
@@ -96,6 +97,53 @@ module Shelob
     # TODO
     def deploy(options={})
       
+    end
+
+    #
+    # Update wiki.
+    #
+    def update(options={})
+      dir  = File.expand_path(wiki_dir)
+      repo = Smeagol::Repository.new(:path=>dir)
+      out  = repo.update
+      out  = out[1] if Array === out
+      report out
+    end
+
+  private
+
+    #
+    # Current wiki directory.
+    #
+    # Returns wiki directory. [String]
+    #
+    def wiki_dir
+      @wiki_dir || Dir.pwd
+    end
+
+    #
+    # Get and cache Wiki object.
+    #
+    # Returns wiki. [Wiki]
+    #
+    def wiki
+      @wiki ||= Smeagol::Wiki.new(wiki_dir)
+    end
+
+    #
+    # Local wiki settings.
+    #
+    # Returns wiki settings. [Settings]
+    #
+    def settings
+      @settings ||= Smeagol::Settings.load(wiki_dir)
+    end
+
+    #
+    # Print to $stderr unless $QUIET.
+    #
+    def report(msg)
+      $stderr.puts msg unless $QUIET
     end
 
   end
