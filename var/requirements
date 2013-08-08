@@ -1,6 +1,6 @@
 ---
 - smeagol
-- sinatra 1.0~
+#- sinatra 1.0~
 - daemons 1.1~
 - citron    (development test)
 - ae        (develpoment test)
