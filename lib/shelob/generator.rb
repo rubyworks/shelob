@@ -1,5 +1,7 @@
 module Shelob
 
+  ##
+  #
   class Generator
 
     # Ensure File refers to Ruby's File class.
@@ -20,7 +22,8 @@ module Shelob
 
     #
     def settings
-      controller.settings
+      #controller.settings
+      @settings ||= Shelob::Settings.load(wiki.path)
     end
 
     #
@@ -149,7 +152,7 @@ module Shelob
       fileutils.cp_r(src, dst) 
     end
 
-    # Save tab le of contents.
+    # Save table of contents.
     def save_toc
       toc  = Smeagol::TOC.new(@controller)
       file = File.join(@dir, 'toc.json')

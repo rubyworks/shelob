@@ -1,5 +1,5 @@
-Shelob - A Static Web Spinner for Gollum Wiki
-=============================================
+Shelob - Static Web Spinner for Gollum Wiki
+===========================================
 
 [Website](http://rubyworks.github.com/shelob) /
 [Documentation](http://rubydoc.info/rubyworks/shelob) /

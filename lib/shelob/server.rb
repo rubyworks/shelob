@@ -26,7 +26,7 @@ module Shelob
     def initialize(options={})
       @options = options
 
-      @root = settings.static_path
+      @root = settings.site_path
 
       @options[:app] = app
       @options[:pid] = "#{tmp_dir}/pids/server.pid"

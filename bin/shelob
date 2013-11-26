@@ -1,9 +1,24 @@
 #!/usr/bin/env ruby
 
-cmd = ['shelob']
-ARGV.each do |arg|
-  break if arg.start_with?('-')
-  cmd << ARGV.shift
+cmd = []
+
+cmd = ARGV.find do |a|
+  !arg.start_with?('-')
 end
-exec(cmd.join('-'), *ARGV)
+
+arg = ARGV.dup
+argv.delete(cmd)
+
+case command
+when 'initialize', 'init'
+  Hyde::CLI.init(argv)
+when 'deploy', 'dep'
+  Hyde::CLI.deploy(argv)
+when 'preview', 'pre'
+  Hyde::CLI.preview(argv)
+when 'transform', 'trans'
+  Hyde::CLI.spin(argv)  # TODO: raname to transform
+else
+  Hyde::CLI.help(argv)
+end
 

@@ -17,7 +17,7 @@ module Shelob
     #  S P I N
 
     #
-    # Spin static site files and synch them to the site path.
+    # Spin static site files and sync them to the site path.
     #
     def spin(options={})
       site_path options[:dir]
@@ -89,7 +89,7 @@ module Shelob
     def preview(options={})
       #build_dir = options[:build_dir] || settings.build_dir
       #system "thin start -A file -c #{build_dir}"
-      StaticServer.run(options)
+      Server.run(options)
     end
 
     #  D E P L O Y

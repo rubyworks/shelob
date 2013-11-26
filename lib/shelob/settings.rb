@@ -1,8 +1,8 @@
-module Smeagol
+module Shelob
 
   # Static requires a couple of additional settings. 
   #
-  class Settings
+  class Settings < Smeagol::Settings
 
     # Default build-to directory for static builds.
     STATIC_DIR = 'public'
